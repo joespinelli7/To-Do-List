@@ -3,29 +3,23 @@ import './App.css';
 import Todos from './components/Todos';
 import Header from './components/layout/Header';
 import AddToDo from './components/AddToDo';
-import uuid from 'uuid';
+// import uuid from 'uuid';
 import { BrowserRouter, Route } from 'react-router-dom';
 import About from './components/pages/About';
+import axios from 'axios';
 
 class App extends React.Component {
   state={
-    todos: [
-      {
-        id: uuid.v4(),
-        title: 'Take out trash',
-        completed: false
-      },
-      {
-        id: uuid.v4(),
-        title: 'Work out',
-        completed: false
-      },
-      {
-        id: uuid.v4(),
-        title: 'Code for 6 hours',
-        completed: false
-      }
-    ]
+    todos: []
+  }
+
+  componentDidMount() {
+    axios.get("https://jsonplaceholder.typicode.com/todos?_limit=5")
+      .then(res =>
+        this.setState({
+          todos: res.data
+        })
+      )
   }
 
   // toggle checkbox onChange (ToDo item component)
@@ -42,21 +36,25 @@ class App extends React.Component {
 
   // delete to-do task
   deleteTaskHandler = (id) => {
-    this.setState({
-      todos: [...this.state.todos.filter((object) => object.id !== id)]
-    });
+    axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      .then(res =>
+        this.setState({
+          todos: [...this.state.todos.filter((object) => object.id !== id)]
+        })
+      )
   }
 
   // add new to-do task
   addToDo = (title) => {
-    const newToDo = {
-      id: uuid.v4(),
+    axios.post("https://jsonplaceholder.typicode.com/todos", {
       title: title,
       completed: false
-    };
-    this.setState({
-      todos: [...this.state.todos, newToDo]
     })
+      .then(res =>
+        this.setState({
+          todos: [...this.state.todos, res.data]
+        })
+      )
   }
 
   render() {

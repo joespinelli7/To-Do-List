@@ -29,7 +29,9 @@ class TodoItem extends React.Component {
 }
 
 TodoItem.propTypes = {
-  todoObject: PropTypes.object.isRequired
+  todoObject: PropTypes.object.isRequired,
+  toggleCheckbox: PropTypes.func.isRequired,
+  deleteTaskHandler: PropTypes.func.isRequired
 }
 
 const btnStyle = {

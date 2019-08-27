@@ -13,7 +13,9 @@ class Todos extends React.Component {
 
 // PropTypes making sure an array is passed down for prop todos
 Todos.propTypes = {
-  todos: PropTypes.array.isRequired
+  todos: PropTypes.array.isRequired,
+  toggleCheckbox: PropTypes.func.isRequired,
+  deleteTaskHandler: PropTypes.func.isRequired
 }
 
 export default Todos;
