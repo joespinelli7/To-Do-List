@@ -3,22 +3,25 @@ import './App.css';
 import Todos from './components/Todos';
 import Header from './components/layout/Header';
 import AddToDo from './components/AddToDo';
+import uuid from 'uuid';
+import { BrowserRouter, Route } from 'react-router-dom';
+import About from './components/pages/About';
 
 class App extends React.Component {
   state={
     todos: [
       {
-        id: 1,
+        id: uuid.v4(),
         title: 'Take out trash',
         completed: false
       },
       {
-        id: 2,
+        id: uuid.v4(),
         title: 'Work out',
         completed: false
       },
       {
-        id: 3,
+        id: uuid.v4(),
         title: 'Code for 6 hours',
         completed: false
       }
@@ -47,7 +50,7 @@ class App extends React.Component {
   // add new to-do task
   addToDo = (title) => {
     const newToDo = {
-      id: 4,
+      id: uuid.v4(),
       title: title,
       completed: false
     };
@@ -58,13 +61,20 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <div className="container">
-          <Header />
-          <AddToDo addToDo={this.addToDo}/>
-          <Todos todos={this.state.todos} deleteTaskHandler={this.deleteTaskHandler} toggleCheckbox={this.toggleCheckbox}/>
+      <BrowserRouter>
+        <div className="App">
+          <div className="container">
+            <Header />
+            <Route path="/" exact render={props => (
+              <React.Fragment>
+                <AddToDo addToDo={this.addToDo}/>
+                <Todos todos={this.state.todos} deleteTaskHandler={this.deleteTaskHandler} toggleCheckbox={this.toggleCheckbox}/>
+              </React.Fragment>
+            )}/>
+            <Route path="/about" component={About}/>
+          </div>
         </div>
-      </div>
+      </BrowserRouter>
     );
   }
 }
