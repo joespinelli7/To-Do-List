@@ -13,6 +13,7 @@ class TodoItem extends React.Component {
   }
 
   render() {
+    // destructuring:
     // const { id, title } = this.props.todo;
     // to call id and title instead of this.props.todo.id
     return (
@@ -20,7 +21,7 @@ class TodoItem extends React.Component {
         <p>
           <input type="checkbox" onChange={() => this.props.toggleCheckbox(this.props.todoObject.id)}/>{' '}
           {this.props.todoObject.title}
-          <button style={btnStyle}>X</button>
+          <button onClick={() => this.props.deleteTaskHandler(this.props.todoObject.id)} style={btnStyle}>X</button>
         </p>
       </div>
     )
