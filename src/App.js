@@ -13,7 +13,7 @@ class App extends React.Component {
       {
         id: 2,
         title: 'Work out',
-        completed: false
+        completed: true
       },
       {
         id: 3,
@@ -22,7 +22,7 @@ class App extends React.Component {
       }
     ]
   }
-  
+
   render() {
     return (
       <div className="App">
