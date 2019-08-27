@@ -15,11 +15,22 @@ class App extends React.Component {
 
   componentDidMount() {
     axios.get("https://jsonplaceholder.typicode.com/todos?_limit=5")
-      .then(res =>
+      .then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+          if (res.data[i].completed) {
+            res.data[i].completed = false
+          }
+        }
         this.setState({
           todos: res.data
         })
-      )
+      })
+
+        // console.log(res.data.)
+        // this.setState({
+        //   todos: res.data
+        // })
+      // )
   }
 
   // toggle checkbox onChange (ToDo item component)
@@ -46,15 +57,18 @@ class App extends React.Component {
 
   // add new to-do task
   addToDo = (title) => {
+    // for some reason id won't change here
+    const idNumber = '_' + Math.random().toString(36).substr(2, 9);
     axios.post("https://jsonplaceholder.typicode.com/todos", {
+      id: idNumber,
       title: title,
       completed: false
     })
-      .then(res =>
+      .then(res => {
         this.setState({
           todos: [...this.state.todos, res.data]
         })
-      )
+      })
   }
 
   render() {
